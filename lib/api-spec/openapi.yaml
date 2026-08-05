@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: drive
+    description: Google Drive operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /drive/file:
+    get:
+      operationId: getDriveFile
+      tags: [drive]
+      summary: Get first Google Drive file title
+      description: Returns the name of the first file found in Google Drive
+      responses:
+        "200":
+          description: File info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DriveFile"
+        "500":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +54,17 @@ components:
           type: string
       required:
         - status
-
+    DriveFile:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

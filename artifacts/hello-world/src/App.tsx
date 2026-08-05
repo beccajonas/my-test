@@ -1,9 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
+import { useGetDriveFile } from '@workspace/api-client-react';
 
 const queryClient = new QueryClient();
 
 function Home() {
+  const { data, isLoading, isError } = useGetDriveFile();
+
   return (
     <div className="min-h-[100dvh] w-full flex items-center justify-center bg-background relative overflow-hidden selection:bg-primary/20">
       {/* Delicate background texture pattern to feel like quality paper */}
@@ -59,6 +62,34 @@ function Home() {
               <span className="w-12 md:w-16 h-[1px] bg-border transition-all duration-500 group-hover:w-8 md:group-hover:w-12 group-hover:bg-primary/30" />
             </p>
           </motion.div>
+        </motion.div>
+
+        {/* Google Drive file */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 1, ease: "easeOut" }}
+          className="mt-12 md:mt-16 flex flex-col items-center gap-2"
+        >
+          <p className="text-muted-foreground/50 font-sans text-xs tracking-[0.25em] uppercase">
+            From Google Drive
+          </p>
+          <div className="h-px w-6 bg-border/40 rounded-full" />
+          {isLoading && (
+            <p className="text-muted-foreground font-sans text-sm tracking-wide animate-pulse">
+              Loading...
+            </p>
+          )}
+          {isError && (
+            <p className="text-destructive/60 font-sans text-sm tracking-wide">
+              Could not load file
+            </p>
+          )}
+          {data && (
+            <p className="text-foreground/70 font-serif text-base md:text-lg tracking-wide">
+              {data.name}
+            </p>
+          )}
         </motion.div>
       </main>
     </div>
