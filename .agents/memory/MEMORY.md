@@ -1,0 +1,1 @@
+- [Codegen compatibility](codegen-compatibility.md) — Orval's automatic Zod version detection can mismatch the workspace runtime.

@@ -13,6 +13,25 @@ tags:
   - name: drive
     description: Google Drive operations
 paths:
+  /greetings:
+    get:
+      operationId: listGreetings
+      summary: List stored Hello World records
+      responses:
+        "200":
+          description: Database greetings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Greeting"
+        "500":
+          description: Database unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
   /healthz:
     get:
       operationId: healthCheck
@@ -47,6 +66,14 @@ paths:
                 $ref: "#/components/schemas/ApiError"
 components:
   schemas:
+    Greeting:
+      type: object
+      required: [id, message]
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
     HealthStatus:
       type: object
       properties:

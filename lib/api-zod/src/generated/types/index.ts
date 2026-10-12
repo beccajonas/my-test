@@ -8,4 +8,5 @@
 
 export * from './apiError';
 export * from './driveFile';
+export * from './greeting';
 export * from './healthStatus';

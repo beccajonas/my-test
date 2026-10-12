@@ -18,6 +18,7 @@ import type {
 import type {
   ApiError,
   DriveFile,
+  Greeting,
   HealthStatus
 } from './api.schemas';
 
@@ -47,6 +48,83 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getListGreetingsUrl = () => {
+
+
+
+
+  return `/api/greetings`
+}
+
+/**
+ * @summary List stored Hello World records
+ */
+export const listGreetings = async ( options?: Parameters<typeof customFetch>[1]): Promise<Greeting[]> => {
+
+  return customFetch<Greeting[]>(getListGreetingsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListGreetingsQueryKey = () => {
+    return [
+    `/api/greetings`
+    ] as const;
+    }
+
+
+export const getListGreetingsQueryOptions = <TData = Awaited<ReturnType<typeof listGreetings>>, TError = ErrorType<ApiError>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listGreetings>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListGreetingsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listGreetings>>> = ({ signal }) => listGreetings({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listGreetings>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListGreetingsQueryResult = NonNullable<Awaited<ReturnType<typeof listGreetings>>>
+export type ListGreetingsQueryError = ErrorType<ApiError>
+
+
+/**
+ * @summary List stored Hello World records
+ */
+
+export function useListGreetings<TData = Awaited<ReturnType<typeof listGreetings>>, TError = ErrorType<ApiError>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listGreetings>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListGreetingsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getHealthCheckUrl = () => {
 

@@ -9,6 +9,16 @@ import * as zod from 'zod';
 
 
 /**
+ * @summary List stored Hello World records
+ */
+export const ListGreetingsResponseItem = zod.object({
+  "id": zod.number().int(),
+  "message": zod.string()
+})
+export const ListGreetingsResponse = zod.array(ListGreetingsResponseItem)
+
+
+/**
  * Returns server health status
  * @summary Health check
  */

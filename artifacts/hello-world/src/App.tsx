@@ -1,11 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { useGetDriveFile } from '@workspace/api-client-react';
+import { useGetDriveFile, useListGreetings } from '@workspace/api-client-react';
 
 const queryClient = new QueryClient();
 
 function Home() {
   const { data, isLoading, isError } = useGetDriveFile();
+  const greetings = useListGreetings();
 
   return (
     <div className="min-h-[100dvh] w-full flex items-center justify-center bg-background relative overflow-hidden selection:bg-primary/20">
@@ -91,6 +92,22 @@ function Home() {
             </p>
           )}
         </motion.div>
+        <section aria-label="Database records" className="mt-8 flex flex-col items-center gap-3">
+          <h2 className="text-muted-foreground font-sans text-xs tracking-[0.25em] uppercase">
+            From the database
+          </h2>
+          {greetings.isLoading && <p role="status">Loading records...</p>}
+          {greetings.isError && <p role="alert">Could not load database records.</p>}
+          {greetings.data?.length === 0 && <p>No records yet.</p>}
+          <ul className="flex flex-wrap justify-center gap-3">
+            {greetings.data?.map((record) => (
+              <li key={record.id} className="rounded-lg border border-border px-5 py-3 text-foreground font-serif">
+                <span className="block text-xs font-sans text-muted-foreground mb-1">Record {record.id}</span>
+                {record.message}
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );

@@ -5,6 +5,11 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface Greeting {
+  id: number;
+  message: string;
+}
+
 export interface HealthStatus {
   status: string;
 }
