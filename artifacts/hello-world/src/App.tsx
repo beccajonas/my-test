@@ -9,7 +9,7 @@ function Home() {
   const greetings = useListGreetings();
 
   return (
-    <div className="min-h-[100dvh] w-full flex items-center justify-center bg-background relative overflow-hidden selection:bg-primary/20">
+    <div className="min-h-[100dvh] w-full flex items-center justify-center relative overflow-hidden selection:bg-primary/20 bg-[#ffe7b061]">
       {/* Delicate background texture pattern to feel like quality paper */}
       <div 
         className="pointer-events-none absolute inset-0 opacity-20"
@@ -18,7 +18,6 @@ function Home() {
           mixBlendMode: 'multiply'
         }}
       />
-      
       {/* Warm ambient glow */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -35,7 +34,6 @@ function Home() {
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"
       />
-
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-6">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
