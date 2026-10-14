@@ -1,1 +1,2 @@
 - [Codegen compatibility](codegen-compatibility.md) — Orval's automatic Zod version detection can mismatch the workspace runtime.
+- [Production commit verification](production-commit-verification.md) — match publish commit trailers to deployment build IDs; timestamps alone are not proof.
