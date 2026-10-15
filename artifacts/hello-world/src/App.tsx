@@ -42,7 +42,7 @@ function Home() {
           className="group cursor-default flex flex-col items-center"
         >
           <div className="relative inline-block mb-6 md:mb-8">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-light tracking-tight text-foreground">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif tracking-tight text-foreground font-black">
               Hello, World<span className="text-primary italic font-medium transition-colors duration-500 group-hover:text-foreground">.</span>
             </h1>
             
